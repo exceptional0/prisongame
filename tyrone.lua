@@ -1,5 +1,4 @@
 -- Gui to Lua
--- snoz5788
 local l = {game:GetService("Workspace").Axe.ClickDetector,game:GetService("Workspace").table2.Collar.collar.ClickDetector}
 for i,v in pairs(workspace:GetDescendants()) do
 if v.Parent:IsA("Tool") and v:IsA("ClickDetector") then table.insert(l,v) end end
@@ -109,14 +108,16 @@ end
 if ra ~= nil then
 for i,v in pairs(ra:GetChildren()) do if v.Name:lower() == "cuff" then v:Destroy() end end
 end
-for i,v in pairs(ch:GetChildren()) do if v.Name == "ropepart" then v:Destroy() end end
+for i,v in pairs(ch:GetChildren()) do if v.Name:lower() == "ropepart" then v:Destroy() end end
 for i,v in pairs(hd:GetChildren()) do if v.Name:lower() == "bag" then v:Destroy() end end
 if ligma:FindFirstChildOfClass("ColorCorrection") then ligma:FindFirstChildOfClass("ColorCorrection"):Destroy() end
 if ligma:FindFirstChildOfClass("BlurEffect") then ligma:FindFirstChildOfClass("BlurEffect"):Destroy() end
 pcall(function()
-if ch:FindFirstChild("Animate") then ch.Animate.Disabled = true for i,v in ipairs(ch.Humanoid:GetPlayingAnimationTracks()) do v:Stop() end ch.Animate.Disabled = false end
-ch.Humanoid.WalkSpeed = 16
-ch.Humanoid.JumpPower = 50
+local hm = ch:FindFirstChildOfClass("Humanoid")
+if ch:FindFirstChild("Animate") then ch.Animate.Disabled = true for i,v in ipairs(hm:GetPlayingAnimationTracks()) do v:Stop() end ch.Animate.Disabled = false end
+hm.WalkSpeed = 16
+hm.JumpPower = 50
+hm.AutoRotate = true
 end)
 elseif string.sub(x,1,2) == "sp" then
 --stolen from infinite yield
