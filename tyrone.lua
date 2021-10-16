@@ -1,4 +1,5 @@
 -- Gui to Lua
+-- snoz5788
 local l = {game:GetService("Workspace").Axe.ClickDetector,game:GetService("Workspace").table2.Collar.collar.ClickDetector}
 for i,v in pairs(workspace:GetDescendants()) do
 if v.Parent:IsA("Tool") and v:IsA("ClickDetector") then table.insert(l,v) end end
