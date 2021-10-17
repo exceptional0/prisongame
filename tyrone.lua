@@ -14,6 +14,8 @@ local playerservice = game:GetService("Players")
 local lp = playerservice.LocalPlayer
 local ligma = game:GetService("Lighting")
 local dv = true
+local removeblindfold = true
+--disable if you like the blindfold hat, you'll still see normally either way
 main.Name = "main"
 main.Parent = game:GetService("CoreGui")
 main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -48,7 +50,9 @@ txt.BackgroundTransparency = 1.000
 txt.Position = UDim2.new(0, 0, -0.000313895056, 0)
 txt.Size = UDim2.new(0.963989615, 0, 1.00031388, 0)
 txt.Font = Enum.Font.SourceSans
-txt.Text = [[commands:
+txt.Text = [[version 1
+[toggle] = use this command to enable/disable
+commands:
 choosinggui
 -remove team choosing gui when joining game so you can be choosing team
 weapons / wps
@@ -59,8 +63,13 @@ cmds
 sp
 -loops set normal speed and jump power
 rj
+bpe
+-loops enable backpack
+-[toggle]
 rp
--remove cuffs,rope,reset animation
+-remove cuffs,rope,bag,blindfold,reset animation
+-cuff removal is somewhat visual (still cant open doors)
+-open gui > undo to actually get rid of cuffs
 ]]
 txt.TextColor3 = Color3.fromRGB(255, 255, 255)
 txt.TextSize = 14.000
@@ -78,7 +87,7 @@ _close.Font = Enum.Font.SourceSans
 _close.Text = "close"
 _close.TextColor3 = Color3.fromRGB(255, 255, 255)
 _close.TextSize = 14.000
-
+local bpt = false
 -- Scripts:
 local function cd(x)
 if x == nil then return "" end
@@ -94,7 +103,9 @@ elseif string.sub(x,1,7) == "weapons" or string.sub(x,1,3) == "wps" then
 for i,v in pairs(l) do
 fireclickdetector(v)
 end
-
+elseif string.sub(x,1,3) == "bpe" then
+bpt = not bpt
+coroutine.wrap(function() local sg = game:GetService("StarterGui") while wait(0.4) and bpt == true do sg:SetCoreGuiEnabled("Backpack", true) end end)()
 elseif string.sub(x,1,3) == "axe" then
 fireclickdetector(l[1])
 elseif string.sub(x,1,2) == "rp" then
@@ -108,7 +119,7 @@ end
 if ra ~= nil then
 for i,v in pairs(ra:GetChildren()) do if v.Name:lower() == "cuff" then v:Destroy() end end
 end
-for i,v in pairs(ch:GetChildren()) do if v.Name:lower() == "ropepart" then v:Destroy() end end
+for i,v in pairs(ch:GetChildren()) do if v.Name:lower() == "ropepart" or v.Name:lower() == "blindfold" and removeblindfold then v:Destroy() end end
 for i,v in pairs(hd:GetChildren()) do if v.Name:lower() == "bag" then v:Destroy() end end
 if ligma:FindFirstChildOfClass("ColorCorrection") then ligma:FindFirstChildOfClass("ColorCorrection"):Destroy() end
 if ligma:FindFirstChildOfClass("BlurEffect") then ligma:FindFirstChildOfClass("BlurEffect"):Destroy() end
