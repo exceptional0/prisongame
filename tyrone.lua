@@ -13,6 +13,7 @@ local ruhb = runservice.Heartbeat
 local playerservice = game:GetService("Players")
 local lp = playerservice.LocalPlayer
 local ligma = game:GetService("Lighting")
+local is,uc = game:GetService("ReplicatedStorage").IsHog,game:GetService("ReplicatedStorage").UnCuffed
 local dv = true
 local removeblindfold = true
 --disable if you like the blindfold hat, you'll still see normally either way
@@ -41,7 +42,7 @@ cmdframe.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 cmdframe.Position = UDim2.new(0.376870751, 0, 0.309890121, 0)
 cmdframe.Size = UDim2.new(0.245578229, 0, 0.376923114, 0)
 cmdframe.Visible = false
-cmdframe.CanvasSize = UDim2.new(0, 0, 0.529999971, 0)
+cmdframe.CanvasSize = UDim2.new(0, 0, 0.829999971, 0)
 
 txt.Name = "txt"
 txt.Parent = cmdframe
@@ -50,7 +51,7 @@ txt.BackgroundTransparency = 1.000
 txt.Position = UDim2.new(0, 0, -0.000313895056, 0)
 txt.Size = UDim2.new(0.963989615, 0, 1.00031388, 0)
 txt.Font = Enum.Font.SourceSans
-txt.Text = [[version 2
+txt.Text = [[version 3, made by snoz#5788
 [toggle] = use this command to enable/disable
 commands:
 choosinggui
@@ -66,10 +67,14 @@ rj
 bpe
 -loops enable backpack
 -[toggle]
-rp
+rp / rs
 -remove cuffs,rope,bag,blindfold,reset animation
--cuff removal is somewhat visual (still cant open doors)
--open gui > undo to actually get rid of cuffs
+-may unragdoll you (idk, sometimes did)
+-cuff removal is sometimes visual only (still cant open doors)
+-open gui > undo to actually get rid of cuffs if this happens
+prisoner
+guard
+fugitive
 ]]
 txt.TextColor3 = Color3.fromRGB(255, 255, 255)
 txt.TextSize = 14.000
@@ -108,9 +113,17 @@ bpt = not bpt
 coroutine.wrap(function() local sg = game:GetService("StarterGui") while wait(0.25) and bpt == true do sg:SetCoreGuiEnabled("Backpack", true) end end)()
 elseif string.sub(x,1,3) == "axe" then
 fireclickdetector(l[1])
-elseif string.sub(x,1,2) == "rp" then
+elseif string.sub(x,1,8) == "prisoner" or string.sub(x,1,2) == "pr" then
+lp.PlayerGui.TeamChangePrisoner.Frame.Visible = true
+elseif string.sub(x,1,5) == "guard" or string.sub(x,1,2) == "gd" then
+lp.PlayerGui.TeamChangePolice.Frame.Visible = true
+elseif string.sub(x,1,8) == "fugitive" then
+lp.PlayerGui.TeamChangeFugitive.Frame.Visible = true
+elseif string.sub(x,1,2) == "rp" or string.sub(x,1,2) == "rs" then
 local ch = lp.Character
 if not ch then return end
+is:FireServer(ch,"UnHog")
+uc:FireServer(ch)
 local hd,la,ra = ch:FindFirstChild("Head"),ch:FindFirstChild("Left Arm"),ch:FindFirstChild("Right Arm")
 if not hd then return end
 if la ~= nil then
