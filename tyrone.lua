@@ -50,7 +50,7 @@ txt.BackgroundTransparency = 1.000
 txt.Position = UDim2.new(0, 0, -0.000313895056, 0)
 txt.Size = UDim2.new(0.963989615, 0, 1.00031388, 0)
 txt.Font = Enum.Font.SourceSans
-txt.Text = [[version 1
+txt.Text = [[version 2
 [toggle] = use this command to enable/disable
 commands:
 choosinggui
@@ -105,7 +105,7 @@ fireclickdetector(v)
 end
 elseif string.sub(x,1,3) == "bpe" then
 bpt = not bpt
-coroutine.wrap(function() local sg = game:GetService("StarterGui") while wait(0.4) and bpt == true do sg:SetCoreGuiEnabled("Backpack", true) end end)()
+coroutine.wrap(function() local sg = game:GetService("StarterGui") while wait(0.25) and bpt == true do sg:SetCoreGuiEnabled("Backpack", true) end end)()
 elseif string.sub(x,1,3) == "axe" then
 fireclickdetector(l[1])
 elseif string.sub(x,1,2) == "rp" then
