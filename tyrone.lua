@@ -16,6 +16,9 @@ local ligma = game:GetService("Lighting")
 local is,uc = game:GetService("ReplicatedStorage").IsHog,game:GetService("ReplicatedStorage").UnCuffed
 local dv = true
 local removeblindfold = true
+local deb = game:GetService("Debris")
+local con,con1,cont = nil,nil,false
+local con2,con3,con4,cont2 = nil,nil,nil,false
 --disable if you like the blindfold hat, you'll still see normally either way
 main.Name = "main"
 main.Parent = game:GetService("CoreGui")
@@ -51,7 +54,7 @@ txt.BackgroundTransparency = 1.000
 txt.Position = UDim2.new(0, 0, -0.000313895056, 0)
 txt.Size = UDim2.new(0.963989615, 0, 1.00031388, 0)
 txt.Font = Enum.Font.SourceSans
-txt.Text = [[version 3, made by snoz#5788
+txt.Text = [[version 3, made by incursion#5788
 [toggle] = use this command to enable/disable
 commands:
 choosinggui
@@ -63,11 +66,13 @@ axe
 cmds
 sp
 -loops set normal speed and jump power
+-[toggle]
 rj
 bpe
 -loops enable backpack
 -[toggle]
 rp / rs
+arp (auto, [toggle])
 -remove cuffs,rope,bag,blindfold,reset animation
 -may unragdoll you (idk, sometimes did)
 -cuff removal is sometimes visual only (still cant open doors)
@@ -119,11 +124,35 @@ elseif string.sub(x,1,5) == "guard" or string.sub(x,1,2) == "gd" then
 lp.PlayerGui.TeamChangePolice.Frame.Visible = true
 elseif string.sub(x,1,8) == "fugitive" then
 lp.PlayerGui.TeamChangeFugitive.Frame.Visible = true
+elseif string.sub(x,1,3) == "arp" then
+local tbm = {"ropepart","cuff"}
+cont = not cont
+local function cn()
+local ch = lp.Character
+if not ch then return end
+con = ch.DescendantAdded:Connect(function(m)
+if table.find(tbm,m.Name:lower()) and cont == true or m.Name:lower() == "bag" and not m:IsA("Tool") and not m:FindFirstAncestorOfClass("Tool") and cont == true then
+wait(0.5)
+task.defer(cmd,"rp")
+if ligma:FindFirstChildOfClass("ColorCorrection") then deb:AddItem(ligma:FindFirstChildOfClass("ColorCorrection"),0) end
+if ligma:FindFirstChildOfClass("BlurEffect") then deb:AddItem(ligma:FindFirstChildOfClass("BlurEffect"),0) end
+elseif cont == false then
+pcall(function()
+con:Disconnect()
+con1:Disconnect()
+end)
+end
+end)
+end
+cn()
+con1 = lp.CharacterAdded:Connect(cn)
 elseif string.sub(x,1,2) == "rp" or string.sub(x,1,2) == "rs" then
 local ch = lp.Character
 if not ch then return end
+for i = 1,2 do
 is:FireServer(ch,"UnHog")
 uc:FireServer(ch)
+end
 local hd,la,ra = ch:FindFirstChild("Head"),ch:FindFirstChild("Left Arm"),ch:FindFirstChild("Right Arm")
 if not hd then return end
 if la ~= nil then
@@ -145,24 +174,25 @@ hm.AutoRotate = true
 end)
 elseif string.sub(x,1,2) == "sp" then
 --stolen from infinite yield
+cont2 = not cont2
 local mychar = lp.Character or lp.CharacterAdded:Wait()
 local hum = mychar:WaitForChild("Humanoid",500)
-if not hum then return end
+if not hum or cont2 == false then if con2 ~= nil then con2:Disconnect() end if con3 ~= nil then con3:Disconnect() end if con4 ~= nil then con4:Disconnect() end return end
 local function wpc()
-if hum then
+if hum and cont2 == true then
 hum.WalkSpeed = 26
 hum.JumpPower = 50
 end
 end
 wpc()
-hum:GetPropertyChangedSignal("WalkSpeed"):Connect(wpc)
-hum:GetPropertyChangedSignal("JumpPower"):Connect(wpc)
-lp.CharacterAdded:Connect(function(ch)
+con2 = hum:GetPropertyChangedSignal("WalkSpeed"):Connect(wpc)
+con3 = hum:GetPropertyChangedSignal("JumpPower"):Connect(wpc)
+con4 = lp.CharacterAdded:Connect(function(ch)
 mychar = ch
 hum = mychar:WaitForChild("Humanoid",1000)
 if not hum then return end
-hum:GetPropertyChangedSignal("WalkSpeed"):Connect(wpc)
-hum:GetPropertyChangedSignal("JumpPower"):Connect(wpc)
+con2 = hum:GetPropertyChangedSignal("WalkSpeed"):Connect(wpc)
+con3 = hum:GetPropertyChangedSignal("JumpPower"):Connect(wpc)
 end)
 elseif string.sub(x,1,2) == "rj" then
 	--stolen from infinite yield
