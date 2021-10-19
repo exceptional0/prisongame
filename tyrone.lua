@@ -126,7 +126,7 @@ elseif string.sub(x,1,3) == "cbt" then
 local cbtT = not cbtT
 coroutine.wrap(function()
 while rustepped:Wait() and cbtT do
-for i,v in pairs(gp(plrs)) do
+for i,v in pairs(gp(playerservice)) do
 local vv = v.Character
 if vv ~= nil and vv.Name ~= pl.Name then
 vvvvvv:FireServer(vv,vvv)
@@ -142,7 +142,7 @@ while wait() and hastbc do
 local ch = me.Character or me.CharacterAdded:Wait()
 tazer = ch:FindFirstChild("Taser")
 if tazer == nil then return end
-for _,v in pairs(plrs:GetPlayers()) do
+for _,v in pairs(gp(playerservice)) do
 coroutine.wrap(function()
 local victim = v.Character
 if victim ~= nil and victim ~= ch then
