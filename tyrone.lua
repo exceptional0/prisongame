@@ -22,6 +22,7 @@ local con2,con3,con4,cont2 = nil,nil,nil,false
 local gp = playerservice.GetPlayers
 local vvv,vvvv = "Grab","Drop"
 local vvvvvv = game:GetService("ReplicatedStorage").Grab
+local fuck = game:GetService("ReplicatedStorage").Tase
 local hastbc,cbtT = false,false
 --disable if you like the blindfold hat, you'll still see normally either way
 main.Name = "main"
@@ -147,7 +148,7 @@ for _,v in pairs(gp(playerservice)) do
 coroutine.wrap(function()
 local victim = v.Character
 if victim ~= nil and victim ~= ch then
-Event:FireServer(me, victim, tazer)
+fuck:FireServer(lp, victim, tazer)
 end
 end)()
 end
