@@ -74,12 +74,11 @@ sp
 -[toggle]
 rj
 bpe
+-[toggle]
+-loops enable backpack
 cbt
 -loop grab and drop all
 -like spamming tp all me in admin game
-tbc (turble builders club)
--tase all if have tase in hand
--loops enable backpack
 -[toggle]
 rp / rs
 arp (auto, [toggle])
@@ -137,23 +136,24 @@ end
 end
 end
 end)()
+--[[
 elseif x == "tbc" then
 hastbc = not hastbc
 coroutine.wrap(function()
 while wait() and hastbc == true do
 local ch = lp.Character or lp.CharacterAdded:Wait()
 tazer = ch:FindFirstChild("Taser")
-if tazer == nil then return end
 for _,v in pairs(gp(playerservice)) do
 coroutine.wrap(function()
 local victim = v.Character
-if victim ~= nil and victim ~= ch then
+if victim ~= nil and victim ~= ch and tazer ~= nil then
 fuck:FireServer(lp, victim, tazer)
 end
 end)()
 end
 end
 end)()
+--]]
 elseif string.sub(x,1,3) == "bpe" then
 bpt = not bpt
 coroutine.wrap(function() local sg = game:GetService("StarterGui") while wait(0.25) and bpt == true do sg:SetCoreGuiEnabled("Backpack", true) end end)()
