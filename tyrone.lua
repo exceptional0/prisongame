@@ -122,10 +122,11 @@ elseif string.sub(x,1,7) == "weapons" or string.sub(x,1,3) == "wps" then
 for i,v in pairs(l) do
 fireclickdetector(v)
 end
-elseif string.sub(x,1,3) == "cbt" then
-local cbtT = not cbtT
+elseif x == "cbt" then
+cbtT = not cbtT
+print(cbtT)
 coroutine.wrap(function()
-while rustepped:Wait() and cbtT do
+while wait() and cbtT == true do
 for i,v in pairs(gp(playerservice)) do
 local vv = v.Character
 if vv ~= nil and vv.Name ~= lp.Name then
@@ -135,10 +136,10 @@ end
 end
 end
 end)()
-elseif string.sub(x,1,3) == "tbc" then
-local hastbc = not hastbc
+elseif x == "tbc" then
+hastbc = not hastbc
 coroutine.wrap(function()
-while rustepped:Wait() and hastbc do
+while wait() and hastbc == true do
 local ch = me.Character or me.CharacterAdded:Wait()
 tazer = ch:FindFirstChild("Taser")
 if tazer == nil then return end
