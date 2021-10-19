@@ -19,6 +19,10 @@ local removeblindfold = true
 local deb = game:GetService("Debris")
 local con,con1,cont = nil,nil,false
 local con2,con3,con4,cont2 = nil,nil,nil,false
+local gp = playerservice.GetPlayers
+local vvv,vvvv = "Grab","Drop"
+local vvvvvv = game:GetService("ReplicatedStorage").Grab
+local hastbc,cbtT = false,false
 --disable if you like the blindfold hat, you'll still see normally either way
 main.Name = "main"
 main.Parent = game:GetService("CoreGui")
@@ -54,7 +58,7 @@ txt.BackgroundTransparency = 1.000
 txt.Position = UDim2.new(0, 0, -0.000313895056, 0)
 txt.Size = UDim2.new(0.963989615, 0, 1.00031388, 0)
 txt.Font = Enum.Font.SourceSans
-txt.Text = [[version 4, made by incursion#5788
+txt.Text = [[version 5, made by incursion#5788
 [toggle] = use this command to enable/disable
 commands:
 choosinggui
@@ -69,6 +73,11 @@ sp
 -[toggle]
 rj
 bpe
+cbt
+-loop grab and drop all
+-like spamming tp all me in admin game
+tbc (turble builders club)
+-tase all if have tase in hand
 -loops enable backpack
 -[toggle]
 rp / rs
@@ -113,6 +122,36 @@ elseif string.sub(x,1,7) == "weapons" or string.sub(x,1,3) == "wps" then
 for i,v in pairs(l) do
 fireclickdetector(v)
 end
+elseif string.sub(x,1,3) == "cbt" then
+local cbtT = not cbtT
+coroutine.wrap(function()
+while rustepped:Wait() and cbtT do
+for i,v in pairs(gp(plrs)) do
+local vv = v.Character
+if vv ~= nil and vv.Name ~= pl.Name then
+vvvvvv:FireServer(vv,vvv)
+vvvvvv:FireServer(vv,vvvv)
+end
+end
+end
+end)()
+elseif string.sub(x,1,3) == "tbc" then
+local hastbc = not hastbc
+coroutine.wrap(function()
+while wait() and hastbc do
+local ch = me.Character or me.CharacterAdded:Wait()
+tazer = ch:FindFirstChild("Taser")
+if tazer == nil then return end
+for _,v in pairs(plrs:GetPlayers()) do
+coroutine.wrap(function()
+local victim = v.Character
+if victim ~= nil and victim ~= ch then
+Event:FireServer(me, victim, tazer)
+end
+end)()
+end
+end
+end)()
 elseif string.sub(x,1,3) == "bpe" then
 bpt = not bpt
 coroutine.wrap(function() local sg = game:GetService("StarterGui") while wait(0.25) and bpt == true do sg:SetCoreGuiEnabled("Backpack", true) end end)()
