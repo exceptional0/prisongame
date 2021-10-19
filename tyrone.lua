@@ -204,7 +204,7 @@ for i,v in pairs(ra:GetChildren()) do if v.Name:lower() == "cuff" then v:Destroy
 end
 for i,v in pairs(ch:GetChildren()) do if v.Name:lower() == "ropepart" or v.Name:lower() == "blindfold" and removeblindfold then v:Destroy() end end
 for i,v in pairs(hd:GetChildren()) do if v.Name:lower() == "bag" then v:Destroy() end end
-if ligma:FindFirstChildOfClass("ColorCorrection") then ligma:FindFirstChildOfClass("ColorCorrection"):Destroy() end
+if ligma:FindFirstChildOfClass("ColorCorrectionEffect") then ligma:FindFirstChildOfClass("ColorCorrectionEffect"):Destroy() end
 if ligma:FindFirstChildOfClass("BlurEffect") then ligma:FindFirstChildOfClass("BlurEffect"):Destroy() end
 pcall(function()
 local hm = ch:FindFirstChildOfClass("Humanoid")
