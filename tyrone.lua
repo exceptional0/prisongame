@@ -140,7 +140,7 @@ elseif x == "tbc" then
 hastbc = not hastbc
 coroutine.wrap(function()
 while wait() and hastbc == true do
-local ch = me.Character or me.CharacterAdded:Wait()
+local ch = lp.Character or lp.CharacterAdded:Wait()
 tazer = ch:FindFirstChild("Taser")
 if tazer == nil then return end
 for _,v in pairs(gp(playerservice)) do
