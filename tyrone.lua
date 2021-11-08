@@ -1,4 +1,5 @@
 -- Gui to Lua
+-- for notepad++ search indexing: tyrone.lua
 local l = {game:GetService("Workspace").Axe.ClickDetector,game:GetService("Workspace").table2.Collar.collar.ClickDetector}
 for i,v in pairs(workspace:GetDescendants()) do
 if v.Parent:IsA("Tool") and v:IsA("ClickDetector") then table.insert(l,v) end end
@@ -154,18 +155,22 @@ end
 end
 end)()
 --]]
-elseif string.sub(x,1,3) == "bpe" then
+elseif x == "iy" then
+coroutine.wrap(function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)()
+elseif x == "bpe" then
 bpt = not bpt
 coroutine.wrap(function() local sg = game:GetService("StarterGui") while wait(0.25) and bpt == true do sg:SetCoreGuiEnabled("Backpack", true) end end)()
-elseif string.sub(x,1,3) == "axe" then
+elseif x == "axe" then
 fireclickdetector(l[1])
-elseif string.sub(x,1,8) == "prisoner" or string.sub(x,1,2) == "pr" then
+elseif x == "prisoner" or x == "pr" then
 lp.PlayerGui.TeamChangePrisoner.Frame.Visible = true
-elseif string.sub(x,1,5) == "guard" or string.sub(x,1,2) == "gd" then
+elseif x == "guard" or x == "gd" then
 lp.PlayerGui.TeamChangePolice.Frame.Visible = true
-elseif string.sub(x,1,8) == "fugitive" then
+elseif x == "fugitive" then
 lp.PlayerGui.TeamChangeFugitive.Frame.Visible = true
-elseif string.sub(x,1,3) == "arp" then
+elseif x == "arp" then
 local tbm = {"ropepart","cuff"}
 cont = not cont
 local function cn()
@@ -173,14 +178,14 @@ local ch = lp.Character
 if not ch then return end
 con = ch.DescendantAdded:Connect(function(m)
 if table.find(tbm,m.Name:lower()) and cont == true or m.Name:lower() == "bag" and not m:IsA("Tool") and not m:FindFirstAncestorOfClass("Tool") and cont == true then
-wait(0.5)
+task.wait(0.5)
 task.defer(cmd,"rp")
-if ligma:FindFirstChildOfClass("ColorCorrection") then deb:AddItem(ligma:FindFirstChildOfClass("ColorCorrection"),0) end
-if ligma:FindFirstChildOfClass("BlurEffect") then deb:AddItem(ligma:FindFirstChildOfClass("BlurEffect"),0) end
 elseif cont == false then
 pcall(function()
 con:Disconnect()
 con1:Disconnect()
+con = nil
+con1 = nil
 end)
 end
 end)
@@ -188,11 +193,16 @@ end
 cn()
 con1 = lp.CharacterAdded:Connect(cn)
 elseif string.sub(x,1,2) == "rp" or string.sub(x,1,2) == "rs" then
+for i = 1,2 do
 local ch = lp.Character
 if not ch then return end
 for i = 1,2 do
 is:FireServer(ch,"UnHog")
+firesignal(lp.PlayerGui.Avatar.Undo.MouseButton1Click)
+task.defer(function()
+task.wait(0.55)
 uc:FireServer(ch)
+end,nil)
 end
 local hd,la,ra = ch:FindFirstChild("Head"),ch:FindFirstChild("Left Arm"),ch:FindFirstChild("Right Arm")
 if not hd then return end
@@ -204,15 +214,16 @@ for i,v in pairs(ra:GetChildren()) do if v.Name:lower() == "cuff" then v:Destroy
 end
 for i,v in pairs(ch:GetChildren()) do if v.Name:lower() == "ropepart" or v.Name:lower() == "blindfold" and removeblindfold then v:Destroy() end end
 for i,v in pairs(hd:GetChildren()) do if v.Name:lower() == "bag" then v:Destroy() end end
-if ligma:FindFirstChildOfClass("ColorCorrectionEffect") then ligma:FindFirstChildOfClass("ColorCorrectionEffect"):Destroy() end
-if ligma:FindFirstChildOfClass("BlurEffect") then ligma:FindFirstChildOfClass("BlurEffect"):Destroy() end
-pcall(function()
+if ligma:FindFirstChildOfClass("ColorCorrectionEffect") then deb:AddItem(ligma:FindFirstChildOfClass("ColorCorrectionEffect"),0) end
+if ligma:FindFirstChildOfClass("BlurEffect") then deb:AddItem(ligma:FindFirstChildOfClass("BlurEffect"),0) end
 local hm = ch:FindFirstChildOfClass("Humanoid")
+if hm == nil then return end
 if ch:FindFirstChild("Animate") then ch.Animate.Disabled = true for i,v in ipairs(hm:GetPlayingAnimationTracks()) do v:Stop() end ch.Animate.Disabled = false end
 hm.WalkSpeed = 16
 hm.JumpPower = 50
 hm.AutoRotate = true
-end)
+task.wait(0.3)
+end
 elseif string.sub(x,1,2) == "sp" then
 --stolen from infinite yield
 cont2 = not cont2
@@ -296,3 +307,4 @@ Text = "loaded"; -- bottom text uwu
 Icon = "rbxassetid://6678521436";
 Duration = 5;
 })
+main = nil
