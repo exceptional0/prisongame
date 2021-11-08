@@ -77,10 +77,6 @@ rj
 bpe
 -[toggle]
 -loops enable backpack
-cbt
--loop grab and drop all
--like spamming tp all me in admin game
--[toggle]
 rp / rs
 arp (auto, [toggle])
 -remove cuffs,rope,bag,blindfold,reset animation
