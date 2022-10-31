@@ -60,7 +60,7 @@ txt.BackgroundTransparency = 1.000
 txt.Position = UDim2.new(0, 0, -0.000313895056, 0)
 txt.Size = UDim2.new(0.963989615, 0, 1.00031388, 0)
 txt.Font = Enum.Font.SourceSans
-txt.Text = [[version 5, made by incursion#5788
+txt.Text = [[version 5
 [toggle] = use this command to enable/disable
 commands:
 choosinggui
